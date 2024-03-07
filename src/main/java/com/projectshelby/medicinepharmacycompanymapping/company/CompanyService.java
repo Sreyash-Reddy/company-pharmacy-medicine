@@ -4,6 +4,8 @@ import com.projectshelby.medicinepharmacycompanymapping.pharmacy.Pharmacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompanyService {
 
@@ -29,11 +31,21 @@ public class CompanyService {
         companyRepository.deleteByName(companyName);
     }
 
-//    public void addPharmacyToCompany(String pharmacyName,String companyName){
-//        if (companyRepository.findByName(companyName).isEmpty()) throw new CompanyException("The company doesn't exists");
-//        companyRepository.addPharmacy(companyName,pharmacyName);
-//    }
+    private final Pharmacy internalPharmacy = Pharmacy.builder().name("Pharmacy1").address("PharmacyAddress1").owner("PharmacyOwner1").build();
+    public Company getCompanyDetailsFromMedicine(String medicineName){
+        List<Company> companies = companyRepository.findAll();
+        return companies.stream()
+                .filter(company -> company.getPharmacies().stream().map(pharmacy -> pharmacy.getMedicines().stream().map(medicine -> medicine.getMedicineName().equals(medicineName)).toList().contains(true)).toList().contains(true))
+                .findFirst()
+                .orElseThrow(()->new CompanyException("Company Doesnt exist"));
+    }
 
+
+
+    //DELETE ALL ENTRIES
+    public void deleteAll(){
+        companyRepository.deleteAll();
+    }
 
 
 }

@@ -3,10 +3,7 @@ package com.projectshelby.medicinepharmacycompanymapping.company;
 
 import com.projectshelby.medicinepharmacycompanymapping.pharmacy.Pharmacy;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +24,7 @@ public class Company {
     private String address;
     private String owner;
 
-    @OneToMany
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Pharmacy> pharmacies;
 
 

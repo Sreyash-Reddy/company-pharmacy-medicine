@@ -34,11 +34,11 @@ public class Medicine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Medicine medicine = (Medicine) o;
-        return Objects.equals(medicineID, medicine.medicineID) && Objects.equals(medicineName, medicine.medicineName) && Objects.equals(price, medicine.price) && Objects.equals(manufacturingDate, medicine.manufacturingDate) && Objects.equals(pharmacy.getPharmacyID(), medicine.pharmacy.getPharmacyID());
+        return Objects.equals(medicineName, medicine.medicineName) && Objects.equals(price, medicine.price) && Objects.equals(manufacturingDate, medicine.manufacturingDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(medicineID, medicineName, price, manufacturingDate, pharmacy.getPharmacyID());
+        return Objects.hash(medicineName, price, manufacturingDate);
     }
 }

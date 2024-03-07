@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,10 +24,10 @@ public interface CompanyRepository extends JpaRepository<Company,Integer> {
     @Query("DELETE FROM Company WHERE name = ?1")
     void deleteByName(String name);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Company SET pharmacies = ?2 WHERE name = ?1")
-    void addPharmacy(String companyName, Pharmacy pharmacy);
+    @Query(value = "SELECT pharmacies FROM Company WHERE name = ?1")
+    List<Pharmacy> findPharmaciesByName(String companyName);
+
+    void deleteAll();
 }
 
 

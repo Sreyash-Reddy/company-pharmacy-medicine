@@ -3,12 +3,7 @@ package com.projectshelby.medicinepharmacycompanymapping.pharmacy;
 import com.projectshelby.medicinepharmacycompanymapping.company.Company;
 import com.projectshelby.medicinepharmacycompanymapping.medicine.Medicine;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,10 +24,10 @@ public class Pharmacy {
     private String owner;
 
     @ManyToOne
-    @Cascade(CascadeType.ALL)
+    @JoinColumn(name = "companyID")
     private Company company;
 
-    @OneToMany
+    @OneToMany(mappedBy = "pharmacy",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Medicine> medicines;
 
     @Override
